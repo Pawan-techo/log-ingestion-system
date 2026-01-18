@@ -1,0 +1,122 @@
+[
+  {
+    "level": "error",
+    "message": "Failed to connect to database",
+    "resourceId": "server-1234",
+    "timestamp": "2026-01-18T08:00:00Z",
+    "traceId": "trace-001",
+    "spanId": "span-001",
+    "commit": "c1a2b3",
+    "metadata": {
+      "parentResourceId": "server-5678"
+    }
+  },
+  {
+    "level": "warn",
+    "message": "High memory usage detected",
+    "resourceId": "server-1235",
+    "timestamp": "2026-01-18T08:15:30Z",
+    "traceId": "trace-002",
+    "spanId": "span-002",
+    "commit": "c1a2b4",
+    "metadata": {
+      "parentResourceId": "server-5679"
+    }
+  },
+  {
+    "level": "info",
+    "message": "User login successful",
+    "resourceId": "frontend-001",
+    "timestamp": "2026-01-18T09:01:05Z",
+    "traceId": "trace-003",
+    "spanId": "span-003",
+    "commit": "c1a2b5",
+    "metadata": {
+      "parentResourceId": "frontend-ui"
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Fetching dashboard data",
+    "resourceId": "frontend-002",
+    "timestamp": "2026-01-18T09:15:10Z",
+    "traceId": "trace-004",
+    "spanId": "span-004",
+    "commit": "c1a2b6",
+    "metadata": {
+      "parentResourceId": "frontend-ui"
+    }
+  },
+  {
+    "level": "error",
+    "message": "Payment gateway timeout",
+    "resourceId": "backend-001",
+    "timestamp": "2026-01-18T09:30:45Z",
+    "traceId": "trace-005",
+    "spanId": "span-005",
+    "commit": "c1a2b7",
+    "metadata": {
+      "parentResourceId": "backend-payments"
+    }
+  },
+  {
+    "level": "info",
+    "message": "Cache refreshed successfully",
+    "resourceId": "cache-001",
+    "timestamp": "2026-01-18T10:05:20Z",
+    "traceId": "trace-006",
+    "spanId": "span-006",
+    "commit": "c1a2b8",
+    "metadata": {
+      "parentResourceId": "cache-service"
+    }
+  },
+  {
+    "level": "warn",
+    "message": "CPU usage high",
+    "resourceId": "server-1236",
+    "timestamp": "2026-01-18T10:30:55Z",
+    "traceId": "trace-007",
+    "spanId": "span-007",
+    "commit": "c1a2b9",
+    "metadata": {
+      "parentResourceId": "server-5680"
+    }
+  },
+  {
+    "level": "debug",
+    "message": "API request payload: { userId: 123 }",
+    "resourceId": "api-001",
+    "timestamp": "2026-01-18T11:01:00Z",
+    "traceId": "trace-008",
+    "spanId": "span-008",
+    "commit": "c1a2c0",
+    "metadata": {
+      "parentResourceId": "api-gateway"
+    }
+  },
+  {
+    "level": "error",
+    "message": "File upload failed",
+    "resourceId": "storage-001",
+    "timestamp": "2026-01-18T11:15:35Z",
+    "traceId": "trace-009",
+    "spanId": "span-009",
+    "commit": "c1a2c1",
+    "metadata": {
+      "parentResourceId": "storage-service"
+    }
+  },
+  {
+    "level": "info",
+    "message": "Scheduled job completed",
+    "resourceId": "scheduler-001",
+    "timestamp": "2026-01-18T11:45:50Z",
+    "traceId": "trace-010",
+    "spanId": "span-010",
+    "commit": "c1a2c2",
+    "metadata": {
+      "parentResourceId": "job-scheduler"
+    }
+  }
+]
