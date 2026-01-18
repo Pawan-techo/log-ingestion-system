@@ -1,165 +1,153 @@
-Log Ingestion System
-1. Project Overview
+# Log Ingestion System
 
-The Log Ingestion System is a full-stack web application that allows users to ingest, store, and filter logs from different resources. The system supports multiple log levels (error, warn, info, debug) and includes filtering by message content, resource ID, timestamps, and other metadata.
+## 1. Project Overview
+The **Log Ingestion System** is a full-stack web application that allows users to ingest, store, and filter logs from different resources. The system supports multiple log levels (`error`, `warn`, `info`, `debug`) and includes filtering by message content, resource ID, timestamps, and other metadata.
 
-Key features include:
+**Key Features:**
+- **Create Logs:** Submit logs with level, message, resource ID, timestamp, trace/span IDs, commit hash, and metadata.
+- **Filter Logs:** Flexible multi-criteria filtering with instant frontend updates.
+- **Frontend/Backend Separation:** React frontend communicates with Node.js/Express backend.
+- **Persistent Storage:** Logs are saved in a JSON file (`logs.json`) on the server.
+- **Loading Indicators & Empty States:** Frontend shows a spinner during API calls and a message when no logs are found.
+- **Debounced Search:** Optional performance enhancement for text search input.
 
-Create Logs: Submit logs with level, message, resource ID, timestamp, trace/span IDs, commit hash, and metadata.
+**Approach:**
+- Frontend built using **React + Tailwind CSS** for rapid UI development and responsive design.
+- Backend built using **Node.js + Express**, with file-based persistence for simplicity and easy deployment.
+- Data is validated and sanitized before ingestion. Filtering logic is handled server-side for efficiency.
 
-Filter Logs: Flexible multi-criteria filtering with instant frontend updates.
+---
 
-Frontend/Backend Separation: React frontend communicates with Node.js/Express backend.
-
-Persistent Storage: Logs are saved in a JSON file (logs.json) on the server.
-
-Loading Indicators & Empty States: Frontend shows a spinner during API calls and a message when no logs are found.
-
-Debounced Search: Optional performance enhancement for text search input.
-
-Approach:
-
-Frontend built using React + Tailwind CSS for rapid UI development and responsive design.
-
-Backend built using Node.js + Express, with file-based persistence for simplicity and easy deployment.
-
-Data is validated and sanitized before ingestion. Filtering logic is handled server-side for efficiency.
-
-2. Prerequisites
-
+## 2. Prerequisites
 Ensure you have the following installed:
+- **Node.js** (v18+ recommended)
+- **npm** (v9+ recommended)
+- Optional: **Git** for cloning the repository
 
-Node.js (v18+ recommended)
+---
 
-npm (v9+ recommended)
+## 3. Setup Instructions
 
-Optional: Git for cloning the repository
-
-3. Setup Instructions
-3.1 Backend Setup
-
-Navigate to the backend folder:
-
+### 3.1 Backend Setup
+1. Navigate to the backend folder:
+```bash
 cd backend
+````
 
+2. Install dependencies:
 
-Install dependencies:
-
+```bash
 npm install
+```
 
+3. Start the backend server:
 
-Start the backend server:
-
+```bash
 npm start
+```
 
+* Backend server runs at: `http://localhost:3000`
 
-The backend server runs on:
+**Backend Details:**
 
-http://localhost:3000
+* Logs are stored in `backend/data/logs.json`.
+* Endpoints:
 
+  * `POST /logs` → Create a new log
+  * `GET /logs` → Retrieve logs with optional filters (`level`, `message`, `resourceId`, `timestamps`, `traceId`, `spanId`, `commit`)
 
-Backend Details:
+---
 
-Logs are stored in backend/data/logs.json.
+### 3.2 Frontend Setup
 
-Endpoints:
+1. Navigate to the frontend folder:
 
-POST /logs → Create a new log
-
-GET /logs → Retrieve logs with optional filters (level, message, resourceId, timestamps, traceId, spanId, commit)
-
-3.2 Frontend Setup
-
-Navigate to the frontend folder:
-
+```bash
 cd frontend
+```
 
+2. Install dependencies:
 
-Install dependencies:
-
+```bash
 npm install
+```
 
+3. Start the frontend server:
 
-Start the frontend server:
-
+```bash
 npm run dev
+```
 
+* Frontend server runs at: `http://localhost:5173` (or another port specified by Vite)
 
-The frontend server runs on:
+---
 
-http://localhost:5173
+### 3.3 Testing
 
+**Backend Unit Tests:**
 
-(or another port specified by Vite)
+* Located in `backend/src/tests/`
+* Run tests using:
 
-3.3 Testing
-
-Backend Unit Tests:
-
-Located in backend/src/tests/
-
-Run tests using:
-
+```bash
 npm test
+```
 
+* Tests include filtering logic for logs with multiple conditions.
 
-Tests include filtering logic for logs with multiple conditions.
+**Frontend:**
 
-Frontend:
+* Optional: Add component tests with **Jest** or **React Testing Library**.
 
-Optional: Add component tests with Jest or React Testing Library
+---
 
-4. Design Decisions & Trade-offs
+## 4. Design Decisions & Trade-offs
 
-File-based Persistence:
+**File-based Persistence:**
 
-Used JSON (logs.json) to simplify storage and avoid database setup for this project.
+* Used JSON (`logs.json`) to simplify storage and avoid database setup.
+* Trade-off: Not suitable for very large datasets or concurrent writes in production.
 
-Trade-off: Not suitable for very large datasets or concurrent writes in production.
+**Library Choices:**
 
-Library Choices:
+* **Express:** Lightweight, minimal setup, easy routing.
+* **React + Tailwind CSS:** Quick UI prototyping with responsive, modern design.
+* **Axios:** Simplified HTTP requests with support for query parameters.
 
-Express → Lightweight, minimal setup, easy routing.
+**Filtering Logic:**
 
-React + Tailwind CSS → Quick UI prototyping with responsive and modern design.
+* Implemented server-side for performance and consistency.
+* Supports combined filters across multiple fields.
 
-Axios → Simplified HTTP requests with support for query parameters.
+**Debounced Search:**
 
-Filtering Logic:
+* Enhances frontend performance by delaying API calls while typing.
 
-Implemented server-side for performance and to ensure all clients see consistent results.
+**Error Handling & Validation:**
 
-Supports combined filters across multiple fields.
+* Backend validates required fields, log levels, and timestamp formats.
+* Returns meaningful HTTP responses (400 for invalid input, 500 for server errors).
 
-Debounced Search:
+**UI/UX Enhancements:**
 
-Optional enhancement for filtering messages efficiently without sending a request on every keystroke.
+* Sticky filter bar for easy access.
+* Loading spinner during API calls.
+* Empty state message when no logs match filters.
+* Toast notifications for success/error during log creation.
 
-Error Handling & Validation:
+---
 
-Backend validates required fields, log levels, and timestamp formats before ingestion.
+## 5. Assumptions
 
-Provides meaningful HTTP responses (400 for invalid input, 500 for server errors).
+* Users provide valid ISO 8601 timestamps when filtering by date.
+* Logs are ingested with minimal metadata; optional fields default to `"N/A"`.
+* JSON file-based storage is sufficient for the project’s intended usage.
 
-UI/UX Enhancements:
+---
 
-Sticky filter bar for easy access while scrolling logs.
+## 6. Folder Structure
 
-Loading spinner during API calls.
-
-Empty state message when no logs match filters.
-
-Toast notifications for success/error during log creation.
-
-5. Assumptions
-
-Users provide valid ISO 8601 timestamps when filtering by date.
-
-Logs are ingested with minimal metadata; optional fields default to "N/A".
-
-JSON file-based storage is sufficient for the project’s intended usage.
-
-6. Folder Structure
+```
 log-ingestion-system/
 │
 ├── backend/
@@ -186,7 +174,7 @@ log-ingestion-system/
 │   │   │   └── mocks/
 │   │   │       └── logs.mock.js           # Mock logs for tests
 │   │   │
-│   │   └── app.js                         # Main Express app (if exists)
+│   │   └── app.js                         # Main Express app
 │   │
 │   ├── package.json
 │   └── package-lock.json
@@ -196,7 +184,7 @@ log-ingestion-system/
 │   │   ├── api/
 │   │   │   └── logApi.js                  # Axios API calls
 │   │   │
-│   │   ├── components/             
+│   │   ├── components/
 │   │   │   ├── FilterBar.jsx              # Filter UI component
 │   │   │   ├── LogForm.jsx                # Form for creating logs
 │   │   │   ├── LogList.jsx                # Displays list of logs
@@ -205,13 +193,28 @@ log-ingestion-system/
 │   │   ├── hooks/
 │   │   │   └── useDebounce.js             # Debounce hook for search
 │   │   │
-|   |   ├──pages
-|   |   |   └── Dashboard.jsx              # Main dashboard page
-|   |   |
-│   │   ├── app.jsx                        # Entry point for React app
-|   |   └── main.jsx
+│   │   ├── pages/
+│   │   │   └── Dashboard.jsx              # Main dashboard page
+│   │   │
+│   │   ├── app.jsx                        # React entry point
+│   │   └── main.jsx
 │   │
 │   ├── package.json
 │   └── package-lock.json
 │
-└── README.md                              # Comprehensive project documentation
+└── README.md                              # Project documentation
+```
+## 7. Project Assessment & Submission
+
+This project is developed and submitted for evaluation purposes for **Evallo.ai**. It demonstrates:
+
+- Full-stack web development using **React** and **Node.js/Express**.
+- File-based persistence with server-side filtering logic.
+- A clean and responsive UI using **Tailwind CSS**.
+- Unit tests for critical backend logic (filtering logs).
+- Thoughtful UX enhancements including sticky filter bar, loading spinner, and toast notifications.
+
+We hope this implementation reflects best practices in design, code structure, and usability.
+
+**Warm regards,**  
+**Pawan Bhuyar**
