@@ -6,8 +6,6 @@ const levelStyles = {
 };
 
 export default function LogRow({ log }) {
-  console.log(log);
-
   return (
     <div
       className={`border-l-4 p-4 rounded shadow-sm mb-3 ${
